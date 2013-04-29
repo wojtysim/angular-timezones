@@ -19,7 +19,7 @@ files = [
   { pattern : 'js/lib/timezones.json', included : false },
   'js/angular-timezones.js',
 
-  'test/directives/*Spec.js'
+  'test/filters/*Spec.js'
 ]
 
 /* Files to exclude. */
