@@ -16,6 +16,14 @@
 }
 ```
 
+## Usage
+
+After including `timezones.js`, add this package to your application.
+
+```javascript
+angular.module('your-application', ['$timezonejs'])
+```
+
 ## Developers
 
 _TimezoneJS for Angular_ is tested with [Karma](http://karma-runner.github.io/) and [PhantomJS](http://phantomjs.org/) against the latest available release of [jQuery](http://jquery.com/) (2.0.0) and [AngularJS](http://angularjs.com/) (1.1.4).
