@@ -11,7 +11,7 @@ files = [
   JASMINE,
   JASMINE_ADAPTER,
 
-  'http://code.jquery.com/jquery-1.9.1.js',
+  'http://code.jquery.com/jquery-2.0.0.js',
   'http://code.angularjs.org/1.1.4/angular.js',
   'http://code.angularjs.org/1.1.4/angular-mocks.js',
   'https://raw.github.com/mde/timezone-js/master/src/date.js',
