@@ -1,20 +1,20 @@
 {
   "name" : "angular-timezone-js",
   "description" : "TimezoneJS for AngularJS",
-  "version" : "0.1.0",
-  "homepage" : "https://github.com/LeZuse/angular-timezone-js",
-  "author" : "Tomas Ruzicka <t@abdoc.net>",
+  "version" : "0.2.0",
+  "homepage" : "https://github.com/michaelahlers/angular-timezone-js",
+  "author" : {
+    "name" : "Michael Ahlers",
+    "email" : "michael@ahlers.co"
+  },
 
   "repository" : {
     "type" : "git",
-    "url" : "git@github.com:LeZuse/angular-timezone-js.git"
+    "url" : "git@github.com:michaelahlers/angular-timezone-js.git"
   },
 
-  "engines" : {
-    "node" : ">= 0.8"
+  "dependencies" : {
   },
-
-  "dependencies" : {},
 
   "devDependencies" : {
     "karma" : "0.8.x",
@@ -27,8 +27,8 @@
 
   "contributors" : [
     {
-      "name" : "Michael Ahlers",
-      "email" : "michael@ahlers.co"
+      "name" : "Tomas Ruzicka",
+      "email" : "t@abdoc.net"
     }
   ]
 }
