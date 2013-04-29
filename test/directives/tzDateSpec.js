@@ -3,7 +3,7 @@
 describe('tzDate', function () {
   var scope, $filter, $compile, $timeout, $sandbox
 
-  beforeEach(module('timezonejs', function ($provide) {
+  beforeEach(module('$timezones', function ($provide) {
     $provide.value('timezonesURL', 'base/js/lib/timezones.json')
   }))
 

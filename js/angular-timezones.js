@@ -10,7 +10,7 @@
     return native
   }
 
-  var module = angular.module('$timezonejs', []);
+  var module = angular.module('$timezones', []);
 
   module.factory('Timezone', function ($injector) {
     var _tz = timezoneJS.timezone;

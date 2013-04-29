@@ -17,7 +17,7 @@ files = [
   'https://raw.github.com/mde/timezone-js/master/src/date.js',
 
   { pattern : 'js/lib/timezones.json', included : false },
-  'js/timezone.js',
+  'js/angular-timezones.js',
 
   'test/directives/*Spec.js'
 ]
