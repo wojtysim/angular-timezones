@@ -21,7 +21,7 @@
 After including `timezones.js`, add this package to your application.
 
 ```javascript
-angular.module('your-application', ['$timezonejs'])
+angular.module('your-application', ['$timezones'])
 ```
 
 ## Developers
