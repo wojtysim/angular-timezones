@@ -10,7 +10,7 @@
 
 ```json
 {
-  {
+  "dependencies" : {
     "angular-timezone-js" : "git@github.com:michaelahlers/angular-timezone-js.git"
   }
 }
