@@ -1,10 +1,10 @@
 {
   "name": "angular-timezone-js",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "dependencies": {
     "angular": "latest",
     "jquery": "latest",
     "angular-filters": "latest",
-    "timezone-js": "git@github.com:mde/timezone-js.git"
+    "timezone-js": "git@github.com:mde/timezone-js.git#v0.4.4"
   }
 }
