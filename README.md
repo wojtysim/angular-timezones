@@ -38,3 +38,5 @@ $ npm test
 ## Acknowledgements
 
 This project was originally forked from [`angular-timezone-js`](https://github.com/LeZuse/angular-timezone-js) by [Tomas Ruzicka](https://github.com/LeZuse).
+
+[Timezone data provided by IANA](http://iana.org/time-zones) (extracted from [tzdata2013c.tar.gz](http://www.iana.org/time-zones/repository/releases/tzdata2013c.tar.gz)).
