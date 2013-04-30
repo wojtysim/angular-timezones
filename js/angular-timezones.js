@@ -74,16 +74,23 @@
        * An Olson name (e.g., America/New_York) to resolve.
        *
        * @param reference
-       * An optional Date used as a reference point (as some properties, like
-       * the abbreviation, vary at various times of the year). The current
-       * date will be used if not provided.
+       * A reference date used to determine values for temporal timezone
+       * properties like the offset and abbreviation (which vary between
+       * standard and daylight times).
        *
        * @returns {{name: string, abbreviation: string, offset: number, region: string, locality: string}}
        */
       resolve : function (timezone, reference) {
+        if (Object.prototype.toString.apply(reference) !== '[object Date]') {
+          throw {
+            name : 'NoReferenceProvided',
+            message : 'The reference date is required.'
+          }
+        }
+
         /* This is not terribly efficient, but necessary because some timezone
          * specifics (like the abbreviation and offset) are temporal. */
-        reference = new timezoneJS.Date(reference || Date.now(), timezone)
+        reference = new timezoneJS.Date(reference, timezone)
 
         var name = reference.getTimezone()
 

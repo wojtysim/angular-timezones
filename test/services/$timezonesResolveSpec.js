@@ -1,6 +1,6 @@
 'use strict'
 
-describe('$timezones', function () {
+describe('$timezones.resolve(timezone, reference)', function () {
   var $timeout
     , $timezones
 
@@ -77,6 +77,18 @@ describe('$timezones', function () {
       expect(actual.region).toEqual(region)
       expect(actual.locality).toEqual(locality)
     })
+  })
+
+  it('should require the reference date', function () {
+    expect(function () {
+      $timezones.resolve('America/New_York')
+    }).toThrow()
+  })
+
+  it('should require Date objects', function () {
+    expect(function () {
+      $timezones.resolve('America/New_York', 'bogus date')
+    }).toThrow()
   })
 
 })
