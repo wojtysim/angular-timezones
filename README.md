@@ -21,8 +21,18 @@
 After including `angular-timezones.js`, add this package to your application.
 
 ```javascript
-angular.module('your-application', ['Timezones'])
+var yourApplication = angular.module('your-application', ['Timezones'])
 ```
+
+### Configuration
+
+This package provides the [IANA timezone data](http://iana.org/time-zones), but you may have this resource served from a different location or you wish to provide your own data. To change that location, set the `$timezones.definitions.location` property to the appropriate path or URL.
+
+```javascript
+yourApplication.constant('$timezones.definitions.location', '/custom/path/to/tz/data')
+```
+
+This is done by the unit tests and illustrated in `docs/examples`.
 
 ### Resolution
 

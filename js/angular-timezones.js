@@ -36,9 +36,9 @@
     }
   })
 
-  module.constant('timezone.definitions.location', '/tz/data')
+  module.constant('$timezones.definitions.location', '/tz/data')
 
-  module.run(['timezone.definitions.location', '$log', function (location, $log) {
+  module.run(['$timezones.definitions.location', '$log', function (location, $log) {
     timezoneJS.timezone.zoneFileBasePath = location
     timezoneJS.timezone.init({ async : false })
   }])
