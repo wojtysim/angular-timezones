@@ -15,15 +15,13 @@
   module.factory('$timezones', function ($injector) {
     var _tz = timezoneJS.timezone
 
-    // _tz.loadingScheme = _tz.loadingSchemes.PRELOAD_ALL
-
     try {
       _tz.zoneFileBasePath = $injector.get('timezonesURL')
     } catch (e) {
       _tz.zoneFileBasePath = '/tz/data'
     }
 
-    _tz.init({async : false})
+    _tz.init({ async : false })
 
     timezoneJS.fromLocalString = function (str, tz) {
       // https://github.com/csnover/js-iso8601/blob/master/iso8601.js – MIT license
@@ -44,7 +42,25 @@
     }
 
     return {
-      Date : timezoneJS.Date
+
+      Date : timezoneJS.Date,
+
+      resolve : function (timezone, reference) {
+        reference = new timezoneJS.Date(reference || Date.now(), timezone)
+
+        var name = reference.getTimezone()
+
+        var result = {
+          name : name,
+          abbreviation : reference.getTimezoneAbbreviation(),
+          offset : -reference.getTimezoneOffset(),
+          region : name.split('/')[0],
+          locality : name.split('/')[1].replace('_', ' ')
+        }
+
+        return result
+      }
+
     }
   })
 

@@ -13,16 +13,50 @@ describe('$timezones', function () {
     $timezones = _$timezones_
   }))
 
-  var now = Date.now()
-
   var scenarios = [
     {
       reference : new Date(Date.parse('1970-01-01T00:00:00+00:00')),
+      name : 'America/Los_Angeles',
+      abbreviation : 'PST',
+      offset : -480,
+      region : 'America',
+      locality : 'Los Angeles'
+    },
+
+    {
+      reference : new Date(Date.parse('1970-01-01T00:00:00+00:00')),
+      name : 'America/New_York',
+      abbreviation : 'EST',
+      offset : -300,
+      region : 'America',
+      locality : 'New York'
+    },
+
+    {
+      reference : new Date(Date.parse('1970-05-01T00:00:00+00:00')),
       name : 'America/New_York',
       abbreviation : 'EDT',
       offset : -240,
       region : 'America',
       locality : 'New York'
+    },
+
+    {
+      reference : new Date(Date.parse('1970-01-01T00:00:00+00:00')),
+      name : 'Europe/Berlin',
+      abbreviation : 'CEST',
+      offset : 60,
+      region : 'Europe',
+      locality : 'Berlin'
+    },
+
+    {
+      reference : new Date(Date.parse('1970-01-01T00:00:00+00:00')),
+      name : 'Etc/GMT+12',
+      abbreviation : 'GMT+12',
+      offset : -720,
+      region : 'Etc',
+      locality : 'GMT+12'
     }
   ]
 
