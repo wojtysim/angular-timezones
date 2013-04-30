@@ -24,6 +24,16 @@ After including `angular-timezones.js`, add this package to your application.
 angular.module('your-application', ['Timezones'])
 ```
 
+## Examples
+
+See `docs/examples` for demonstrations of these features. As timezone data (found in `tz/data`) _must_ be served from a web server, these examples will not work from the local disk. However, there is a quick solution for most platforms: the files can be served with [Python's `SimpleHTTPServer`](http://docs.python.org/2/library/simplehttpserver.html).
+
+```shell
+python -m SimpleHTTPServer
+```
+
+Once running, visit `http://localhost:8000/` in your web browser, and navigate to the examples folder.
+
 ## Developers
 
 _Timezones for Angular_ is tested with [Karma](http://karma-runner.github.io/) and [PhantomJS](http://phantomjs.org/) against the latest available release of [jQuery](http://jquery.com/) (2.0.0) and [AngularJS](http://angularjs.com/) (1.1.4).
@@ -31,8 +41,8 @@ _Timezones for Angular_ is tested with [Karma](http://karma-runner.github.io/) a
 With [NPM](http://npmjs.com/) installed, you can test your modifications with the following.
 
 ```
-$ npm install
-$ npm test
+npm install
+npm test
 ```
 
 ## Acknowledgements
