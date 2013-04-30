@@ -59,7 +59,7 @@
        * @returns {{name: string, abbreviation: string, offset: number, region: string, locality: string}}
        */
       resolve : function (timezone, reference) {
-        /* This is not terribly efficient, but necessary beacuse some timezone
+        /* This is not terribly efficient, but necessary because some timezone
          * specifics (like the abbreviation and offset) are temporal. */
         reference = new timezoneJS.Date(reference || Date.now(), timezone)
 
