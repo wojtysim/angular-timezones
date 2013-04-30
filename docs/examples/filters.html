@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html ng-app="application">
+<head>
+  <meta charset="utf-8">
+
+  <title>Filters - Timezones for AngularJS</title>
+
+  <script type="text/javascript" src="http://code.jquery.com/jquery-2.0.0.js"></script>
+  <script type="text/javascript" src="http://code.angularjs.org/1.1.4/angular.js"></script>
+  <script type="text/javascript" src="https://raw.github.com/mde/timezone-js/master/src/date.js"></script>
+
+  <script type="text/javascript" src="../../js/angular-timezones.js"></script>
+
+  <script type="text/javascript" src="filters.js"></script>
+
+</head>
+<body>
+<h1>Filters</h1>
+
+<h2><code>tzDate</code></h2>
+
+<div ng-controller="World">
+
+  <p>
+    The local time, {{now|date:"yyyy-MM-dd HH:mm:ss Z"}}, shown around the world.
+  </p>
+
+  <table>
+    <thead>
+    <tr>
+      <th>Timezone</th>
+      <th>Time</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr ng-repeat="example in examples">
+      <td>{{example.timezone}}</td>
+      <td>{{example.reference|tzDate:example.timezone|date:"yyyy-MM-dd HH:mm:ss Z"}}</td>
+    </tr>
+    </tbody>
+  </table>
+
+</div>
+
+</body>
+</html>
