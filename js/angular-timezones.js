@@ -81,6 +81,16 @@
        * @returns {{name: string, abbreviation: string, offset: number, region: string, locality: string}}
        */
       resolve : function (timezone, reference) {
+
+        /*
+         * TODO: Support resolution without reference dates.
+         *
+         * For now, we must use reference dates. There's just not enough time
+         * to write and test code that would resolve all possible definitions
+         * for any given timezone. Hopefully the TimezoneJS folks will support
+         * that some day.
+         */
+
         if (Object.prototype.toString.apply(reference) !== '[object Date]') {
           throw {
             name : 'NoReferenceProvided',
