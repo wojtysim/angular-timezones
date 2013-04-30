@@ -101,7 +101,7 @@
     }
   })
 
-  module.filter('tzDate', function ($timezones) {
+  module.filter('tzAlign', function ($timezones) {
     return function (date, timezone) {
       return $timezones.align(date, timezone)
     }
