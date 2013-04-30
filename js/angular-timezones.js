@@ -1,4 +1,4 @@
-(function () {
+(function (angular, timezoneJS) {
 
   var toExtendedNative = function (wrapped) {
     /* Tricks the isDate method in Angular into treating these objects like it
@@ -54,4 +54,4 @@
     }
   })
 
-})(angular)
+})(angular, timezoneJS)
