@@ -16,17 +16,7 @@
 
   var module = angular.module('Timezones', [])
 
-  module.factory('$timezones', function ($injector) {
-    var _tz = timezoneJS.timezone
-
-    try {
-      _tz.zoneFileBasePath = $injector.get('timezonesURL')
-    } catch (e) {
-      _tz.zoneFileBasePath = '/tz/data'
-    }
-
-    _tz.init({ async : false })
-
+  module.config(function () {
     timezoneJS.fromLocalString = function (str, tz) {
       // https://github.com/csnover/js-iso8601/blob/master/iso8601.js – MIT license
 
@@ -44,7 +34,16 @@
 
       return toExtendedNative(new timezoneJS.Date(struct[1], struct[2], struct[3], struct[4], struct[5], struct[6], struct[7], tz))
     }
+  })
 
+  module.constant('timezone.definitions.location', '/tz/data')
+
+  module.run(['timezone.definitions.location', '$log', function (location, $log) {
+    timezoneJS.timezone.zoneFileBasePath = location
+    timezoneJS.timezone.init({ async : false })
+  }])
+
+  module.factory('$timezones', function () {
     var resolve = function (timezone, reference) {
       if ('number' === typeof(reference)) {
         reference = new Date(reference)

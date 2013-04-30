@@ -4,7 +4,7 @@ describe('tzAlign', function () {
   var scope, $filter, $compile, $timeout, $sandbox
 
   beforeEach(module('Timezones', function ($provide) {
-    $provide.value('timezonesURL', 'base/tz/data')
+    $provide.constant('timezone.definitions.location', 'base/tz/data')
   }))
 
   beforeEach(inject(function ($injector, $rootScope, _$filter_, _$compile_, _$timeout_, $rootElement) {
