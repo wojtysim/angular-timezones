@@ -1,5 +1,5 @@
 {
-  "name": "angular-timezone-js",
+  "name": "angular-timezones",
   "version": "0.2.0",
   "dependencies": {
     "angular": "latest",
