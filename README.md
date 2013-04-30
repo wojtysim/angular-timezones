@@ -6,7 +6,7 @@
 
 ### Bower
 
-[Bower](https://github.com/bower/bower) users can add the following to their package dependencies. Be sure to see [_tags_](https://github.com/michaelahlers/angular-timezone-js/tags) for a list of available versions.
+[Bower](https://github.com/bower/bower) users can add the following to their package dependencies. Be sure to see [_tags_](https://github.com/michaelahlers/angular-timezones/tags) for a list of available versions.
 
 ```json
 {
