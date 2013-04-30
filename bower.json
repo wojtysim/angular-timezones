@@ -1,6 +1,7 @@
 {
   "name": "angular-timezones",
   "version": "0.2.0",
+  "main": "js/angular-timezones.js",
   "dependencies": {
     "angular": "latest",
     "jquery": "latest",
