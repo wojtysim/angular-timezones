@@ -1,6 +1,6 @@
 {
   "name" : "angular-timezones",
-  "version" : "0.2.0",
+  "version" : "0.2.1",
 
   "main" : "js/angular-timezones.js",
 
@@ -8,11 +8,11 @@
     ".bowerrc",
     ".idea",
     ".gitignore",
+    ".travis.yml",
     "index.html",
     "js/demo.js",
     "package.json",
-    "test",
-    "travis.yml"
+    "test"
   ],
 
   "dependencies" : {
