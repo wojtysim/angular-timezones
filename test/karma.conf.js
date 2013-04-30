@@ -19,7 +19,8 @@ files = [
   { pattern : 'tz/data/*', included : false },
   'js/angular-timezones.js',
 
-  'test/filters/*Spec.js'
+  'test/filters/*Spec.js',
+  'test/services/*Spec.js'
 ]
 
 /* Files to exclude. */
