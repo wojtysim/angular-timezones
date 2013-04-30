@@ -1,4 +1,4 @@
-# Timezones for AngularJS [![Build Status](https://secure.travis-ci.org/michaelahlers/angular-timezone-js.png)](http://travis-ci.org/michaelahlers/angular-timezone-js)
+# Timezones for AngularJS [![Build Status](https://secure.travis-ci.org/michaelahlers/angular-timezones.png)](http://travis-ci.org/michaelahlers/angular-timezones)
 
 [AngularJS](http://angularjs.com/) features for [TimezoneJS](https://github.com/mde/timezone-js)-enhanced JavaScript `Date` objects.
 
