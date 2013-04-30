@@ -26,7 +26,7 @@ angular.module('your-application', ['Timezones'])
 
 ## Examples
 
-See `docs/examples` for demonstrations of these features. As timezone data (found in `tz/data`) _must_ be served from a web server, these examples will not work from the local disk. However, there is a quick solution for most platforms: the files can be served with [Python's `SimpleHTTPServer`](http://docs.python.org/2/library/simplehttpserver.html).
+See `docs/examples` for demonstrations of these features. As timezone data (found in `tz/data`) _must_ be served from a web server, these examples will not work from the local disk. However, there is a quick solution for most platforms: the files can be served with Python's [`SimpleHTTPServer`](http://docs.python.org/2/library/simplehttpserver.html).
 
 ```shell
 python -m SimpleHTTPServer
