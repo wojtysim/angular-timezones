@@ -16,7 +16,7 @@ files = [
   'http://code.angularjs.org/1.1.4/angular-mocks.js',
   'https://raw.github.com/mde/timezone-js/master/src/date.js',
 
-  { pattern : 'js/lib/timezones.json', included : false },
+  { pattern : 'tz/data/*', included : false },
   'js/angular-timezones.js',
 
   'test/filters/*Spec.js'

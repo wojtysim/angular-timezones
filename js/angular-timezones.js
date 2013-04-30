@@ -10,18 +10,20 @@
     return native
   }
 
-  var module = angular.module('$timezones', []);
+  var module = angular.module('Timezones', []);
 
-  module.factory('Timezone', function ($injector) {
+  module.factory('$timezones', function ($injector) {
     var _tz = timezoneJS.timezone;
-    _tz.loadingScheme = _tz.loadingSchemes.MANUAL_LOAD;
-    // TODO: load with ang?
+
+    // _tz.loadingScheme = _tz.loadingSchemes.PRELOAD_ALL
 
     try {
-      _tz.loadZoneJSONData($injector.get('timezonesURL'), true);
+      _tz.zoneFileBasePath = $injector.get('timezonesURL')
     } catch (e) {
-      _tz.loadZoneJSONData('js/lib/timezones.json', true);
+      _tz.zoneFileBasePath = '/tz/data'
     }
+
+    _tz.init({async : false})
 
     timezoneJS.fromLocalString = function (str, tz) {
       // https://github.com/csnover/js-iso8601/blob/master/iso8601.js – MIT license
@@ -43,10 +45,9 @@
     return timezoneJS;
   });
 
-  module.filter('tzDate', function (Timezone) {
+  module.filter('tzDate', function ($timezones) {
     return function (dt, tz) {
-      console.log('ar', arguments);
-      return toExtendedNative(new Timezone.Date(dt, tz));
+      return toExtendedNative(new $timezones.Date(dt, tz));
     };
   });
 

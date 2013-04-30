@@ -3,8 +3,8 @@
 describe('tzDate', function () {
   var scope, $filter, $compile, $timeout, $sandbox
 
-  beforeEach(module('$timezones', function ($provide) {
-    $provide.value('timezonesURL', 'base/js/lib/timezones.json')
+  beforeEach(module('Timezones', function ($provide) {
+    $provide.value('timezonesURL', 'base/tz/data')
   }))
 
   beforeEach(inject(function ($injector, $rootScope, _$filter_, _$compile_, _$timeout_) {
@@ -43,8 +43,8 @@ describe('tzDate', function () {
         fullYear : 1969,
         month : 11,
         date : 31,
-        hours : 20,
-        text : '1969-12-31 20:00:00 -0400'
+        hours : 19,
+        text : '1969-12-31 19:00:00 -0500'
       }
     },
     {
@@ -57,8 +57,8 @@ describe('tzDate', function () {
         fullYear : 1969,
         month : 11,
         date : 31,
-        hours : 17,
-        text : '1969-12-31 17:00:00 -0700'
+        hours : 16,
+        text : '1969-12-31 16:00:00 -0800'
       }
     }
   ]
@@ -69,14 +69,13 @@ describe('tzDate', function () {
         , reference = scenario.scope.reference
         , expected = scenario.expected
 
-      var aligned = $filter('tzDate')(reference, timezone)
+      var actual = $filter('tzDate')(reference, timezone)
 
-      expect(aligned.getTimezone()).toEqual(timezone)
-
-      expect(aligned.getFullYear()).toEqual(expected.fullYear)
-      expect(aligned.getMonth()).toEqual(expected.month)
-      expect(aligned.getDate()).toEqual(expected.date)
-      expect(aligned.getHours()).toEqual(expected.hours)
+      expect(actual.getTimezone()).toEqual(timezone)
+      expect(actual.getFullYear()).toEqual(expected.fullYear)
+      expect(actual.getMonth()).toEqual(expected.month)
+      expect(actual.getDate()).toEqual(expected.date)
+      expect(actual.getHours()).toEqual(expected.hours)
     })
   })
 
