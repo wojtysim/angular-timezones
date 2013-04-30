@@ -26,7 +26,7 @@ angular.module('your-application', ['Timezones'])
 
 ## Developers
 
-_TimezoneJS for Angular_ is tested with [Karma](http://karma-runner.github.io/) and [PhantomJS](http://phantomjs.org/) against the latest available release of [jQuery](http://jquery.com/) (2.0.0) and [AngularJS](http://angularjs.com/) (1.1.4).
+_Timezones for Angular_ is tested with [Karma](http://karma-runner.github.io/) and [PhantomJS](http://phantomjs.org/) against the latest available release of [jQuery](http://jquery.com/) (2.0.0) and [AngularJS](http://angularjs.com/) (1.1.4).
 
 With [NPM](http://npmjs.com/) installed, you can test your modifications with the following.
 
