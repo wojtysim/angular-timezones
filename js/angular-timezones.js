@@ -1,4 +1,8 @@
-(function (angular, timezoneJS) {
+(function (root) {
+
+  var angular = root.angular
+    , timezoneJS = root.timezoneJS
+    , jstz = root.jstz
 
   var toExtendedNative = function (wrapped) {
     /* Tricks the isDate method in Angular into treating these objects like it
@@ -41,6 +45,44 @@
       return toExtendedNative(new timezoneJS.Date(struct[1], struct[2], struct[3], struct[4], struct[5], struct[6], struct[7], tz))
     }
 
+    var resolve = function (timezone, reference) {
+      if ('number' === typeof(reference)) {
+        reference = new Date(reference)
+      }
+
+      /*
+       * TODO: Support resolution without reference dates.
+       *
+       * For now, we must use reference dates. There's just not enough time
+       * to write and test code that would resolve all possible definitions
+       * for any given timezone. Hopefully the TimezoneJS folks will support
+       * that some day.
+       */
+
+      if (Object.prototype.toString.apply(reference) !== '[object Date]') {
+        throw {
+          name : 'NoReferenceProvided',
+          message : 'The reference date is required.'
+        }
+      }
+
+      /* This is not terribly efficient, but necessary because some timezone
+       * specifics (like the abbreviation and offset) are temporal. */
+      reference = new timezoneJS.Date(reference, timezone)
+
+      var name = reference.getTimezone()
+
+      var result = {
+        name : name,
+        abbreviation : reference.getTimezoneAbbreviation(),
+        offset : reference.getTimezoneOffset(),
+        region : name.split('/')[0],
+        locality : name.split('/')[1].replace('_', ' ')
+      }
+
+      return result
+    }
+
     return {
 
       /**
@@ -80,39 +122,26 @@
        *
        * @returns {{name: string, abbreviation: string, offset: number, region: string, locality: string}}
        */
-      resolve : function (timezone, reference) {
+      resolve : resolve,
 
-        /*
-         * TODO: Support resolution without reference dates.
-         *
-         * For now, we must use reference dates. There's just not enough time
-         * to write and test code that would resolve all possible definitions
-         * for any given timezone. Hopefully the TimezoneJS folks will support
-         * that some day.
-         */
-
-        if (Object.prototype.toString.apply(reference) !== '[object Date]') {
+      /**
+       * If the jsTimezoneDetect library is available, use it to make an
+       * approximate guess at the current timezone Olson name. From there,
+       * perform resolution as usual (which implicitly gets the authoritative
+       * definitions from the IANA database).
+       */
+      getLocal : function () {
+        if ('undefined' === typeof(jstz) || 'function' !== typeof(jstz.determine)) {
           throw {
-            name : 'NoReferenceProvided',
-            message : 'The reference date is required.'
+            name : 'JSTZLibraryMissing',
+            message : 'The jsTimezoneDetect library, available at https://bitbucket.org/pellepim/jstimezonedetect, is required to detect the local timezone.'
           }
         }
 
-        /* This is not terribly efficient, but necessary because some timezone
-         * specifics (like the abbreviation and offset) are temporal. */
-        reference = new timezoneJS.Date(reference, timezone)
+        var name = jstz.determine().name()
+          , now = new Date()
 
-        var name = reference.getTimezone()
-
-        var result = {
-          name : name,
-          abbreviation : reference.getTimezoneAbbreviation(),
-          offset : -reference.getTimezoneOffset(),
-          region : name.split('/')[0],
-          locality : name.split('/')[1].replace('_', ' ')
-        }
-
-        return result
+        return resolve(name, now)
       }
 
     }
@@ -124,4 +153,4 @@
     }
   })
 
-})(angular, timezoneJS)
+})(this)
