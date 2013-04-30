@@ -1,11 +1,24 @@
 {
-  "name": "angular-timezones",
-  "version": "0.2.0",
-  "main": "js/angular-timezones.js",
-  "dependencies": {
-    "angular": "latest",
-    "jquery": "latest",
-    "angular-filters": "latest",
-    "timezone-js": "git@github.com:mde/timezone-js.git#v0.4.4"
+  "name" : "angular-timezones",
+  "version" : "0.2.0",
+
+  "main" : "js/angular-timezones.js",
+
+  "ignore" : [
+    ".bowerrc",
+    ".idea",
+    ".gitignore",
+    "index.html",
+    "js/demo.js",
+    "package.json",
+    "test",
+    "travis.yml"
+  ],
+
+  "dependencies" : {
+    "angular" : "latest",
+    "jquery" : "latest",
+    "angular-filters" : "latest",
+    "timezone-js" : "git@github.com:mde/timezone-js.git#v0.4.4"
   }
 }
