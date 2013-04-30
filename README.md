@@ -1,6 +1,6 @@
-# TimezoneJS for AngularJS [![Build Status](https://secure.travis-ci.org/michaelahlers/angular-timezone-js.png)](http://travis-ci.org/michaelahlers/angular-timezone-js)
+# Timezones for AngularJS [![Build Status](https://secure.travis-ci.org/michaelahlers/angular-timezone-js.png)](http://travis-ci.org/michaelahlers/angular-timezone-js)
 
-[AngularJS](http://angularjs.com/) directives and services for [TimezoneJS](https://github.com/mde/timezone-js)-enhanced JavaScript `Date` objects.
+[AngularJS](http://angularjs.com/) features for [TimezoneJS](https://github.com/mde/timezone-js)-enhanced JavaScript `Date` objects.
 
 ## Inclusion
 
@@ -18,10 +18,10 @@
 
 ## Usage
 
-After including `timezones.js`, add this package to your application.
+After including `angular-timezones.js`, add this package to your application.
 
 ```javascript
-angular.module('your-application', ['$timezones'])
+angular.module('your-application', ['Timezones'])
 ```
 
 ## Developers
