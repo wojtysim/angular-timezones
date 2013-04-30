@@ -1,6 +1,6 @@
 'use strict'
 
-describe('tzDate', function () {
+describe('tzAlign', function () {
   var scope, $filter, $compile, $timeout, $sandbox
 
   beforeEach(module('Timezones', function ($provide) {
@@ -38,7 +38,7 @@ describe('tzDate', function () {
         reference : new Date(Date.parse('1970-01-01T00:00:00+00:00')),
         timezone : 'America/New_York'
       },
-      markup : '<span>{{reference|tzDate:timezone|date:"yyyy-MM-dd HH:mm:ss Z"}}</span>',
+      markup : '<span>{{reference|tzAlign:timezone|date:"yyyy-MM-dd HH:mm:ss Z"}}</span>',
       expected : {
         fullYear : 1969,
         month : 11,
@@ -52,7 +52,7 @@ describe('tzDate', function () {
         reference : new Date(Date.parse('1970-01-01T00:00:00+00:00')),
         timezone : 'America/Los_Angeles'
       },
-      markup : '<span>{{reference|tzDate:timezone|date:"yyyy-MM-dd HH:mm:ss Z"}}</span>',
+      markup : '<span>{{reference|tzAlign:timezone|date:"yyyy-MM-dd HH:mm:ss Z"}}</span>',
       expected : {
         fullYear : 1969,
         month : 11,
@@ -66,7 +66,7 @@ describe('tzDate', function () {
         reference : new Date(Date.parse('1970-01-01T00:00:00+00:00')),
         timezone : 'Europe/Berlin'
       },
-      markup : '<span>{{reference|tzDate:timezone|date:"yyyy-MM-dd HH:mm:ss Z"}}</span>',
+      markup : '<span>{{reference|tzAlign:timezone|date:"yyyy-MM-dd HH:mm:ss Z"}}</span>',
       expected : {
         fullYear : 1970,
         month : 0,
@@ -80,7 +80,7 @@ describe('tzDate', function () {
         reference : new Date(Date.parse('1970-01-01T00:00:00+00:00')),
         timezone : 'Australia/Sydney'
       },
-      markup : '<span>{{reference|tzDate:timezone|date:"yyyy-MM-dd HH:mm:ss Z"}}</span>',
+      markup : '<span>{{reference|tzAlign:timezone|date:"yyyy-MM-dd HH:mm:ss Z"}}</span>',
       expected : {
         fullYear : 1970,
         month : 0,
@@ -97,7 +97,7 @@ describe('tzDate', function () {
         , reference = scenario.scope.reference
         , expected = scenario.expected
 
-      var actual = $filter('tzDate')(reference, timezone)
+      var actual = $filter('tzAlign')(reference, timezone)
 
       expect(actual.getTimezone()).toEqual(timezone)
       expect(actual.getFullYear()).toEqual(expected.fullYear)

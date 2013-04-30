@@ -24,6 +24,14 @@ After including `angular-timezones.js`, add this package to your application.
 angular.module('your-application', ['Timezones'])
 ```
 
+### Resolution
+
+The `$timezones.resolve(timezone, reference)` function will, using the reference `Date` provided, look up complete details about the timezone&mdash;including the abbreviation, offset, and decomposed region and locality. This is useful for avoiding clever tricks to extract abbreviations from `Date.toString` (which is not particularly portable or robust). Additionally, resulting values are derived from the authoritative IANA timezone data.
+
+### Detection
+
+If [jsTimezoneDetect](https://bitbucket.org/pellepim/jstimezonedetect) is included, the `$timezones.getLocal()` function will detect the browser's local timezone and provide a complete definition that's resolved against the IANA database.
+
 ## Examples
 
 See `docs/examples` for demonstrations of these features. As timezone data (found in `tz/data`) _must_ be served from a web server, these examples will not work from the local disk. However, there is a quick solution for most platforms: the files can be served with Python's [`SimpleHTTPServer`](http://docs.python.org/2/library/simplehttpserver.html).

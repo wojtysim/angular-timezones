@@ -35,7 +35,7 @@
     <tbody>
     <tr ng-repeat="example in examples">
       <td>{{example.timezone}}</td>
-      <td>{{example.reference|tzDate:example.timezone|date:"yyyy-MM-dd HH:mm:ss Z"}}</td>
+      <td>{{example.reference|tzAlign:example.timezone|date:"yyyy-MM-dd HH:mm:ss Z"}}</td>
     </tr>
     </tbody>
   </table>

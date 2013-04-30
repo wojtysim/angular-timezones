@@ -14,12 +14,14 @@ files = [
   'http://code.jquery.com/jquery-2.0.0.js',
   'http://code.angularjs.org/1.1.4/angular.js',
   'http://code.angularjs.org/1.1.4/angular-mocks.js',
-  'https://raw.github.com/mde/timezone-js/master/src/date.js',
+  'http://raw.github.com/mde/timezone-js/master/src/date.js',
+  'http://cdnjs.cloudflare.com/ajax/libs/jstimezonedetect/1.0.4/jstz.js',
 
   { pattern : 'tz/data/*', included : false },
   'js/angular-timezones.js',
 
-  'test/filters/*Spec.js'
+  'test/filters/*Spec.js',
+  'test/services/*Spec.js'
 ]
 
 /* Files to exclude. */
