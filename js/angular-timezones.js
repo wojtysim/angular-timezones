@@ -45,7 +45,22 @@
 
       Date : timezoneJS.Date,
 
+      /**
+       * Generate an object that defines the timezone.
+       *
+       * @param timezone
+       * An Olson name (e.g., America/New_York) to resolve.
+       *
+       * @param reference
+       * An optional Date used as a reference point (as some properties, like
+       * the abbreviation, vary at various times of the year). The current
+       * date will be used if not provided.
+       *
+       * @returns {{name: string, abbreviation: string, offset: number, region: string, locality: string}}
+       */
       resolve : function (timezone, reference) {
+        /* This is not terribly efficient, but necessary beacuse some timezone
+         * specifics (like the abbreviation and offset) are temporal. */
         reference = new timezoneJS.Date(reference || Date.now(), timezone)
 
         var name = reference.getTimezone()
