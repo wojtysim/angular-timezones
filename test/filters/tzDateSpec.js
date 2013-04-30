@@ -60,6 +60,34 @@ describe('tzDate', function () {
         hours : 16,
         text : '1969-12-31 16:00:00 -0800'
       }
+    },
+    {
+      scope : {
+        reference : new Date(Date.parse('1970-01-01T00:00:00+00:00')),
+        timezone : 'Europe/Berlin'
+      },
+      markup : '<span>{{reference|tzDate:timezone|date:"yyyy-MM-dd HH:mm:ss Z"}}</span>',
+      expected : {
+        fullYear : 1970,
+        month : 0,
+        date : 1,
+        hours : 1,
+        text : '1970-01-01 01:00:00 +0100'
+      }
+    },
+    {
+      scope : {
+        reference : new Date(Date.parse('1970-01-01T00:00:00+00:00')),
+        timezone : 'Australia/Sydney'
+      },
+      markup : '<span>{{reference|tzDate:timezone|date:"yyyy-MM-dd HH:mm:ss Z"}}</span>',
+      expected : {
+        fullYear : 1970,
+        month : 0,
+        date : 1,
+        hours : 10,
+        text : '1970-01-01 10:00:00 +1000'
+      }
     }
   ]
 
