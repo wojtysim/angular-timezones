@@ -32,6 +32,8 @@ describe('$timezones', function () {
         , name = scenario.name
         , abbreviation = scenario.abbreviation
         , offset = scenario.offset
+        , region = scenario.region
+        , locality = scenario.locality
 
       var actual = $timezones.resolve(name, reference)
 
