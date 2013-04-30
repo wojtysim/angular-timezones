@@ -7,13 +7,13 @@ describe('tzDate', function () {
     $provide.value('timezonesURL', 'base/tz/data')
   }))
 
-  beforeEach(inject(function ($injector, $rootScope, _$filter_, _$compile_, _$timeout_) {
+  beforeEach(inject(function ($injector, $rootScope, _$filter_, _$compile_, _$timeout_, $rootElement) {
     scope = $rootScope
     $filter = _$filter_
     $compile = _$compile_
     $timeout = _$timeout_
 
-    $sandbox = $('<div id="sandbox"></div>').appendTo($('body'))
+    $sandbox = $rootElement.append(angular.element('<div id="sandbox"></div>'))
   }))
 
   var compile = function (scenario) {
