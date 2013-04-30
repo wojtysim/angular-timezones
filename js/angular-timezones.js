@@ -43,7 +43,29 @@
 
     return {
 
-      Date : timezoneJS.Date,
+      /**
+       * Aligns the provided Date object to the specified timezone.
+       *
+       * @param date
+       * Reference date.
+       *
+       * @param timezone
+       * An Olson name (e.g., America/New_York), or a timezone object
+       * (produced by the resolve function).
+       *
+       * @returns {*} A Date "aligned" to the desired timezone.
+       */
+      align : function (date, timezone) {
+        if ('object' === typeof(timezone) && timezone.name) {
+          return toExtendedNative(new timezoneJS.Date(date, timezone.name))
+        }
+
+        if ('string' === typeof(timezone)) {
+          return toExtendedNative(new timezoneJS.Date(date, timezone))
+        }
+
+        throw new Error('The timezone argument must either be an Olson name (e.g., America/New_York), or a timezone object (produced by the resolve function) bearing an Olson name on the name property.')
+      },
 
       /**
        * Generate an object that defines the timezone.
@@ -80,8 +102,8 @@
   })
 
   module.filter('tzDate', function ($timezones) {
-    return function (dt, tz) {
-      return toExtendedNative(new $timezones.Date(dt, tz))
+    return function (date, timezone) {
+      return $timezones.align(date, timezone)
     }
   })
 
