@@ -21,12 +21,18 @@ describe('$timezones.align(date, timezoneF)', function () {
     expect(function () {
       $timezones.align({}, 'America/New_York')
     }).toThrow()
+
+    expect(function () {
+      $timezones.align(null, 'America/New_York')
+    }).toThrow()
   })
 
-  it('should accept numerical dates', function () {
-    expect(function () {
-      return $timezones.align(0, 'America/New_York')
-    }).toBeDefined()
+  it('should accept numerical dates as number literals', function () {
+    expect($timezones.align(1270548037000, 'America/New_York')).toBeDefined()
+  })
+
+  it('should accept numerical dates as string literals', function () {
+    expect($timezones.align('1270548037000', 'America/New_York')).toBeDefined()
   })
 
 })

@@ -5,7 +5,7 @@
     , jstz = root.jstz
 
   var isNumber = function (value) {
-    return typeof value == 'number'
+    return (typeof value == 'number') || (!isNaN(value - 0) && value !== null && value !== '' && value !== false)
   }
 
   var isDate = function (value) {
