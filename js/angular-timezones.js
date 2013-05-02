@@ -4,6 +4,14 @@
     , timezoneJS = root.timezoneJS
     , jstz = root.jstz
 
+  var isNumber = function (value) {
+    return typeof value == 'number'
+  }
+
+  var isDate = function (value) {
+    return Object.prototype.toString.apply(value) === '[object Date]'
+  }
+
   var toExtendedNative = function (wrapped) {
     /* Tricks the isDate method in Angular into treating these objects like it
      * would any other Date. May be horribly slow. */
@@ -58,10 +66,10 @@
        * that some day.
        */
 
-      if (Object.prototype.toString.apply(reference) !== '[object Date]') {
+      if (!isDate(reference)) {
         throw {
           name : 'NoReferenceProvided',
-          message : 'The reference date is required.'
+          message : 'The reference Date is required.'
         }
       }
 
@@ -97,6 +105,15 @@
        * @returns {*} A Date "aligned" to the desired timezone.
        */
       align : function (date, timezone) {
+        date = isNumber(date) ? new Date(date) : date
+
+        if (!isDate(date)) {
+          throw {
+            name : 'NoDateProvided',
+            message : 'A Date object is required.'
+          }
+        }
+
         if ('object' === typeof(timezone) && timezone.name) {
           return toExtendedNative(new timezoneJS.Date(date, timezone.name))
         }
