@@ -108,6 +108,11 @@ describe('tzAlign', function () {
         , el = compile(scenario.markup, scenario.timezone, scenario.reference)
 
       expect(el.text()).toEqual(expected.text)
+
+      scope.timezone = 'America/Chicago'
+      scope.$digest()
+
+      expect(el.text()).not.toEqual(expected.text)
     })
   })
 
