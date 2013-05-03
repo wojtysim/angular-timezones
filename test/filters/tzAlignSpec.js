@@ -16,8 +16,10 @@ describe('tzAlign', function () {
     $sandbox = $rootElement.append(angular.element('<div id="sandbox"></div>'))
   }))
 
-  var compile = function (scenario) {
+  var compile = function (scenario, reference) {
     angular.extend(scope, scenario.scope)
+
+    scope.reference = reference
 
     var $element = $(scenario.markup).appendTo($sandbox)
 
@@ -35,9 +37,9 @@ describe('tzAlign', function () {
   var scenarios = [
     {
       scope : {
-        reference : new Date(Date.parse('1970-01-01T00:00:00+00:00')),
         timezone : 'America/New_York'
       },
+      reference : new Date(Date.parse('1970-01-01T00:00:00+00:00')),
       markup : '<span>{{reference|tzAlign:timezone|date:"yyyy-MM-dd HH:mm:ss Z"}}</span>',
       expected : {
         fullYear : 1969,
@@ -49,9 +51,9 @@ describe('tzAlign', function () {
     },
     {
       scope : {
-        reference : new Date(Date.parse('1970-01-01T00:00:00+00:00')),
         timezone : 'America/Los_Angeles'
       },
+      reference : new Date(Date.parse('1970-01-01T00:00:00+00:00')),
       markup : '<span>{{reference|tzAlign:timezone|date:"yyyy-MM-dd HH:mm:ss Z"}}</span>',
       expected : {
         fullYear : 1969,
@@ -63,9 +65,9 @@ describe('tzAlign', function () {
     },
     {
       scope : {
-        reference : new Date(Date.parse('1970-01-01T00:00:00+00:00')),
         timezone : 'Europe/Berlin'
       },
+      reference : new Date(Date.parse('1970-01-01T00:00:00+00:00')),
       markup : '<span>{{reference|tzAlign:timezone|date:"yyyy-MM-dd HH:mm:ss Z"}}</span>',
       expected : {
         fullYear : 1970,
@@ -77,9 +79,9 @@ describe('tzAlign', function () {
     },
     {
       scope : {
-        reference : new Date(Date.parse('1970-01-01T00:00:00+00:00')),
         timezone : 'Australia/Sydney'
       },
+      reference : new Date(Date.parse('1970-01-01T00:00:00+00:00')),
       markup : '<span>{{reference|tzAlign:timezone|date:"yyyy-MM-dd HH:mm:ss Z"}}</span>',
       expected : {
         fullYear : 1970,
@@ -94,7 +96,7 @@ describe('tzAlign', function () {
   it('should align dates to expected timezones', function () {
     scenarios.forEach(function (scenario) {
       var timezone = scenario.scope.timezone
-        , reference = scenario.scope.reference
+        , reference = scenario.reference
         , expected = scenario.expected
 
       var actual = $filter('tzAlign')(reference, timezone)
@@ -107,10 +109,19 @@ describe('tzAlign', function () {
     })
   })
 
-  it('should support formatting dates to expected timezones', function () {
+  it('should support formatting date objects to expected timezones', function () {
     scenarios.forEach(function (scenario) {
       var expected = scenario.expected
-        , el = compile(scenario)
+        , el = compile(scenario, scenario.reference)
+
+      expect(el.text()).toEqual(expected.text)
+    })
+  })
+
+  it('should support formatting numerical to expected timezones', function () {
+    scenarios.forEach(function (scenario) {
+      var expected = scenario.expected
+        , el = compile(scenario, scenario.reference)
 
       expect(el.text()).toEqual(expected.text)
     })
