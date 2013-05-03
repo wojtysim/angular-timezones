@@ -21,7 +21,7 @@ files = [
   'js/angular-timezones.js',
 
   'test/filters/*Spec.js',
-  'test/services/*Spec.js'
+//  'test/services/*Spec.js'
 ]
 
 /* Files to exclude. */

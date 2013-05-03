@@ -4,6 +4,10 @@
     , timezoneJS = root.timezoneJS
     , jstz = root.jstz
 
+  var isString = function (value) {
+    return typeof value == 'string'
+  }
+
   var isNumber = function (value) {
     return (typeof value == 'number') || (!isNaN(value - 0) && value !== null && value !== '' && value !== false)
   }
@@ -105,8 +109,6 @@
        * @returns {*} A Date "aligned" to the desired timezone.
        */
       align : function (date, timezone) {
-        date = isNumber(date) ? new Date(date) : date
-
         if (!isDate(date)) {
           throw {
             name : 'NoDateProvided',
@@ -165,6 +167,10 @@
 
   module.filter('tzAlign', function ($timezones) {
     return function (date, timezone) {
+      if (isNumber(date)) {
+        date = new Date(isString(date) ? parseInt(date) : date)
+      }
+
       return $timezones.align(date, timezone)
     }
   })
