@@ -167,6 +167,10 @@
 
   module.filter('tzAlign', function ($timezones) {
     return function (date, timezone) {
+      if ('undefined' === typeof timezone) {
+        return date
+      }
+
       if (isNumber(date)) {
         date = new Date(isString(date) ? parseInt(date) : date)
       }

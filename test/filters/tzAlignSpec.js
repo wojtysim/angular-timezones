@@ -102,6 +102,17 @@ describe('tzAlign', function () {
     })
   })
 
+  it('should pass the date through unchanged when timezone is undefined', function () {
+    scenarios.forEach(function (scenario) {
+      var reference = scenario.reference
+        , expected = scenario.reference
+
+      var actual = $filter('tzAlign')(reference, undefined)
+
+      expect(actual).toBe(expected)
+    })
+  })
+
   it('should align date objects that are formatted correctly', function () {
     scenarios.forEach(function (scenario) {
       var expected = scenario.expected
@@ -133,5 +144,4 @@ describe('tzAlign', function () {
       expect(el.text()).toEqual(expected.text)
     })
   })
-
 })
