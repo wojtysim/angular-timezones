@@ -8,7 +8,7 @@ describe('tzAlign', function () {
   }))
 
   beforeEach(inject(function ($injector, $rootScope, _$filter_, _$compile_, _$timeout_, $rootElement) {
-    scope = $rootScope
+    scope = $rootScope.$new(true)
     $filter = _$filter_
     $compile = _$compile_
     $timeout = _$timeout_
@@ -16,12 +16,13 @@ describe('tzAlign', function () {
     $sandbox = $rootElement.append(angular.element('<div id="sandbox"></div>'))
   }))
 
-  var compile = function (scenario, reference) {
-    angular.extend(scope, scenario.scope)
+  var compile = function (markup, timezone, reference) {
+    angular.extend(scope, {
+      timezone : timezone,
+      reference : reference
+    })
 
-    scope.reference = reference
-
-    var $element = $(scenario.markup).appendTo($sandbox)
+    var $element = $(markup).appendTo($sandbox)
 
     $element = $compile($element)(scope)
     scope.$digest()
@@ -36,9 +37,7 @@ describe('tzAlign', function () {
 
   var scenarios = [
     {
-      scope : {
-        timezone : 'America/New_York'
-      },
+      timezone : 'America/New_York',
       reference : new Date(Date.parse('1970-01-01T00:00:00+00:00')),
       markup : '<span>{{reference|tzAlign:timezone|date:"yyyy-MM-dd HH:mm:ss Z"}}</span>',
       expected : {
@@ -50,9 +49,7 @@ describe('tzAlign', function () {
       }
     },
     {
-      scope : {
-        timezone : 'America/Los_Angeles'
-      },
+      timezone : 'America/Los_Angeles',
       reference : new Date(Date.parse('1970-01-01T00:00:00+00:00')),
       markup : '<span>{{reference|tzAlign:timezone|date:"yyyy-MM-dd HH:mm:ss Z"}}</span>',
       expected : {
@@ -64,9 +61,7 @@ describe('tzAlign', function () {
       }
     },
     {
-      scope : {
-        timezone : 'Europe/Berlin'
-      },
+      timezone : 'Europe/Berlin',
       reference : new Date(Date.parse('1970-01-01T00:00:00+00:00')),
       markup : '<span>{{reference|tzAlign:timezone|date:"yyyy-MM-dd HH:mm:ss Z"}}</span>',
       expected : {
@@ -78,9 +73,7 @@ describe('tzAlign', function () {
       }
     },
     {
-      scope : {
-        timezone : 'Australia/Sydney'
-      },
+      timezone : 'Australia/Sydney',
       reference : new Date(Date.parse('1970-01-01T00:00:00+00:00')),
       markup : '<span>{{reference|tzAlign:timezone|date:"yyyy-MM-dd HH:mm:ss Z"}}</span>',
       expected : {
@@ -95,7 +88,7 @@ describe('tzAlign', function () {
 
   it('should align dates to expected timezones', function () {
     scenarios.forEach(function (scenario) {
-      var timezone = scenario.scope.timezone
+      var timezone = scenario.timezone
         , reference = scenario.reference
         , expected = scenario.expected
 
@@ -109,19 +102,28 @@ describe('tzAlign', function () {
     })
   })
 
-  it('should support formatting date objects to expected timezones', function () {
+  it('should align date objects that are formatted correctly', function () {
     scenarios.forEach(function (scenario) {
       var expected = scenario.expected
-        , el = compile(scenario, scenario.reference)
+        , el = compile(scenario.markup, scenario.timezone, scenario.reference)
 
       expect(el.text()).toEqual(expected.text)
     })
   })
 
-  it('should support formatting numerical to expected timezones', function () {
+  it('should align milliseconds from epoch as numeric literals that are formatted', function () {
     scenarios.forEach(function (scenario) {
       var expected = scenario.expected
-        , el = compile(scenario, scenario.reference)
+        , el = compile(scenario.markup, scenario.timezone, scenario.reference.getTime())
+
+      expect(el.text()).toEqual(expected.text)
+    })
+  })
+
+  it('should align milliseconds from epoch as string literals that are formatted', function () {
+    scenarios.forEach(function (scenario) {
+      var expected = scenario.expected
+        , el = compile(scenario.markup, scenario.timezone, '' + scenario.reference.getTime())
 
       expect(el.text()).toEqual(expected.text)
     })
