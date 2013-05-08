@@ -4,17 +4,17 @@
     , timezoneJS = root.timezoneJS
     , jstz = root.jstz
 
-  var isString = function (value) {
-    return typeof value == 'string'
-  }
-
-  var isNumber = function (value) {
-    return (typeof value == 'number') || (!isNaN(value - 0) && value !== null && value !== '' && value !== false)
-  }
-
-  var isDate = function (value) {
-    return Object.prototype.toString.apply(value) === '[object Date]'
-  }
+//  var isString = function (value) {
+//    return typeof value == 'string'
+//  }
+//
+//  var isNumber = function (value) {
+//    return (typeof value == 'number') || (!isNaN(value - 0) && value !== null && value !== '' && value !== false)
+//  }
+//
+//  var isDate = function (value) {
+//    return Object.prototype.toString.apply(value) === '[object Date]'
+//  }
 
   var toExtendedNative = function (wrapped) {
     /* Tricks the isDate method in Angular into treating these objects like it
@@ -109,7 +109,7 @@
        * @returns {*} A Date "aligned" to the desired timezone.
        */
       align : function (date, timezone) {
-        if (!isDate(date)) {
+        if (!angular.isDate(date)) {
           throw {
             name : 'DateObjectExpected',
             message : 'Expected a Date object; got "' + date + '".'
@@ -167,15 +167,33 @@
 
   module.filter('tzAlign', function ($timezones) {
     return function (date, timezone) {
-      if ('undefined' === typeof timezone) {
+      if (angular.isUndefined(date) || angular.isUndefined(timezone)) {
         return date
       }
 
-      if (isNumber(date)) {
-        date = new Date(isString(date) ? parseInt(date) : date)
+      if (null == date || null == timezone) {
+        return date
       }
 
-      return $timezones.align(date, timezone)
+      var verifiedDate = date
+
+      if (angular.isNumber(date)) {
+        verifiedDate = new Date(date)
+      } else if (angular.isString(date)) {
+        var milliseconds = parseInt(date)
+
+        if (!angular.isNumber(milliseconds)) {
+          milliseconds = Date.parse(date)
+        }
+
+        verifiedDate = new Date(milliseconds)
+      }
+
+      if (!angular.isDate(verifiedDate) || isNaN(verifiedDate.getTime())) {
+        return date
+      }
+
+      return $timezones.align(verifiedDate, timezone)
     }
   })
 
