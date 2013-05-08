@@ -113,6 +113,24 @@ describe('tzAlign', function () {
     })
   })
 
+  it('should pass through invalid date values', function () {
+    var expected = 'bogus value'
+      , actual = $filter('tzAlign')(expected)
+    expect(actual).toBe(expected)
+  })
+
+  it('should pass through null date values', function () {
+    var expected = null
+      , actual = $filter('tzAlign')(expected)
+    expect(actual).toBeNull()
+  })
+
+  it('should pass through undefined date values', function () {
+    var expected = undefined
+      , actual = $filter('tzAlign')(expected)
+    expect(actual).toBeUndefined()
+  })
+
   it('should align date objects that are formatted correctly', function () {
     scenarios.forEach(function (scenario) {
       var expected = scenario.expected

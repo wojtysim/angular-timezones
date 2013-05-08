@@ -13,17 +13,27 @@ describe('$timezones.align(date, timezoneF)', function () {
     $timezones = _$timezones_
   }))
 
-  it('should reject invalid dates', function () {
+  it('should reject invalid date strings', function () {
     expect(function () {
       $timezones.align('bogus', 'America/New_York')
     }).toThrow()
+  })
 
+  it('should reject invalid date objects', function () {
     expect(function () {
       $timezones.align({}, 'America/New_York')
     }).toThrow()
+  })
 
+  it('should reject null dates', function () {
     expect(function () {
       $timezones.align(null, 'America/New_York')
+    }).toThrow()
+  })
+
+  it('should reject undefined dates', function () {
+    expect(function () {
+      $timezones.align(undefined, 'America/New_York')
     }).toThrow()
   })
 
