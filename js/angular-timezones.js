@@ -111,8 +111,8 @@
       align : function (date, timezone) {
         if (!isDate(date)) {
           throw {
-            name : 'NoDateProvided',
-            message : 'A Date object is required.'
+            name : 'DateObjectExpected',
+            message : 'Expected a Date object; got "' + date + '".'
           }
         }
 
