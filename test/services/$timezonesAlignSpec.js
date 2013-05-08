@@ -37,6 +37,30 @@ describe('$timezones.align(date, timezoneF)', function () {
     }).toThrow()
   })
 
+  it('should reject invalid timezone names', function () {
+    expect(function () {
+      $timezones.align(Date.now(), 'bogus')
+    }).toThrow()
+  })
+
+  it('should reject invalid timezone objects', function () {
+    expect(function () {
+      $timezones.align(Date.now(), {})
+    }).toThrow()
+  })
+
+  it('should reject null timezones', function () {
+    expect(function () {
+      $timezones.align(Date.now(), null)
+    }).toThrow()
+  })
+
+  it('should reject undefined timezones', function () {
+    expect(function () {
+      $timezones.align(Date.now(), undefined)
+    }).toThrow()
+  })
+
   it('should accept numerical dates as number literals', function () {
     expect($timezones.align(1270548037000, 'America/New_York')).toBeDefined()
   })
