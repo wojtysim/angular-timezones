@@ -25,15 +25,21 @@ describe('$timezones.align(date, timezoneF)', function () {
     }).toThrow()
   })
 
-  it('should reject null dates', function () {
+  it('should reject null for date', function () {
     expect(function () {
       $timezones.align(null, 'America/New_York')
     }).toThrow()
   })
 
-  it('should reject undefined dates', function () {
+  it('should reject undefined for date', function () {
     expect(function () {
       $timezones.align(undefined, 'America/New_York')
+    }).toThrow()
+  })
+
+  it('should reject booleans for date', function () {
+    expect(function () {
+      $timezones.align(true, 'America/New_York')
     }).toThrow()
   })
 
@@ -49,13 +55,13 @@ describe('$timezones.align(date, timezoneF)', function () {
     }).toThrow()
   })
 
-  it('should reject null timezones', function () {
+  it('should reject null for timezone', function () {
     expect(function () {
       $timezones.align(Date.now(), null)
     }).toThrow()
   })
 
-  it('should reject undefined timezones', function () {
+  it('should reject undefined for timezone', function () {
     expect(function () {
       $timezones.align(Date.now(), undefined)
     }).toThrow()

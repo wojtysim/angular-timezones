@@ -147,6 +147,16 @@ describe('tzAlign', function () {
     expect(actual).toBeUndefined()
   })
 
+  it('should pass through boolean date values', function () {
+    var actual
+
+    expect(function () {
+      actual = $filter('tzAlign')(true, 'America/New_York')
+    }).not.toThrow()
+
+    expect(actual).toBe(true)
+  })
+
   it('should align date objects that are formatted correctly', function () {
     scenarios.forEach(function (scenario) {
       var expected = scenario.expected
