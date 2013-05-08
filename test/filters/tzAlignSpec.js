@@ -106,8 +106,11 @@ describe('tzAlign', function () {
     scenarios.forEach(function (scenario) {
       var reference = scenario.reference
         , expected = scenario.reference
+        , actual
 
-      var actual = $filter('tzAlign')(reference, undefined)
+      expect(function () {
+        actual = $filter('tzAlign')(reference, undefined)
+      }).not.toThrow()
 
       expect(actual).toBe(expected)
     })
@@ -115,19 +118,32 @@ describe('tzAlign', function () {
 
   it('should pass through invalid date values', function () {
     var expected = 'bogus value'
-      , actual = $filter('tzAlign')(expected)
+      , actual
+
+    expect(function () {
+      actual = $filter('tzAlign')(expected)
+    }).not.toThrow()
+
     expect(actual).toBe(expected)
   })
 
   it('should pass through null date values', function () {
-    var expected = null
-      , actual = $filter('tzAlign')(expected)
+    var actual
+
+    expect(function () {
+      actual = $filter('tzAlign')(null)
+    }).not.toThrow()
+
     expect(actual).toBeNull()
   })
 
   it('should pass through undefined date values', function () {
-    var expected = undefined
-      , actual = $filter('tzAlign')(expected)
+    var actual
+
+    expect(function () {
+      actual = $filter('tzAlign')(undefined)
+    }).not.toThrow()
+
     expect(actual).toBeUndefined()
   })
 
