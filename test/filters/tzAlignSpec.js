@@ -121,7 +121,7 @@ describe('tzAlign', function () {
       , actual
 
     expect(function () {
-      actual = $filter('tzAlign')(expected)
+      actual = $filter('tzAlign')(expected, 'America/New_York')
     }).not.toThrow()
 
     expect(actual).toBe(expected)
@@ -131,7 +131,7 @@ describe('tzAlign', function () {
     var actual
 
     expect(function () {
-      actual = $filter('tzAlign')(null)
+      actual = $filter('tzAlign')(null, 'America/New_York')
     }).not.toThrow()
 
     expect(actual).toBeNull()
@@ -141,7 +141,7 @@ describe('tzAlign', function () {
     var actual
 
     expect(function () {
-      actual = $filter('tzAlign')(undefined)
+      actual = $filter('tzAlign')(undefined, 'America/New_York')
     }).not.toThrow()
 
     expect(actual).toBeUndefined()
