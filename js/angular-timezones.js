@@ -4,18 +4,6 @@
     , timezoneJS = root.timezoneJS
     , jstz = root.jstz
 
-//  var isString = function (value) {
-//    return typeof value == 'string'
-//  }
-//
-//  var isNumber = function (value) {
-//    return (typeof value == 'number') || (!isNaN(value - 0) && value !== null && value !== '' && value !== false)
-//  }
-//
-//  var isDate = function (value) {
-//    return Object.prototype.toString.apply(value) === '[object Date]'
-//  }
-
   var toExtendedNative = function (wrapped) {
     /* Tricks the isDate method in Angular into treating these objects like it
      * would any other Date. May be horribly slow. */
@@ -70,10 +58,10 @@
        * that some day.
        */
 
-      if (!isDate(reference)) {
+      if (!angular.isDate(reference)) {
         throw {
-          name : 'NoReferenceProvided',
-          message : 'The reference Date is required.'
+          name : 'DateObjectExpected',
+          message : 'Expected a Date object; got "' + date + '".'
         }
       }
 
