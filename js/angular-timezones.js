@@ -155,11 +155,7 @@
 
   module.filter('tzAlign', function ($timezones) {
     return function (date, timezone) {
-      if (angular.isUndefined(date) || angular.isUndefined(timezone)) {
-        return date
-      }
-
-      if (null == date || null == timezone) {
+      if (!(angular.isDate(date) || angular.isNumber(date) || angular.isString(date)) || !(angular.isString(timezone))) {
         return date
       }
 
