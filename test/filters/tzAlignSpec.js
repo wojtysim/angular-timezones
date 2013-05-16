@@ -157,6 +157,41 @@ describe('tzAlign', function () {
     expect(actual).toBe(true)
   })
 
+  it('should pass through dates when timezone is null', function () {
+    var expected = new Date(1970, 1, 1)
+      , actual = $filter('tzAlign')(expected, null)
+
+    expect(actual).toEqual(expected)
+  })
+
+  it('should pass through dates when timezone is undefined', function () {
+    var expected = new Date(1970, 1, 1)
+      , actual = $filter('tzAlign')(expected, undefined)
+
+    expect(actual).toEqual(expected)
+  })
+
+  it('should pass through dates when timezone is an object', function () {
+    var expected = new Date(1970, 1, 1)
+      , actual = $filter('tzAlign')(expected, {})
+
+    expect(actual).toEqual(expected)
+  })
+
+  it('should pass through dates when timezone is a number', function () {
+    var expected = new Date(1970, 1, 1)
+      , actual = $filter('tzAlign')(expected, 1234)
+
+    expect(actual).toEqual(expected)
+  })
+
+  it('should pass through dates when timezone is an invalid string', function () {
+    var expected = new Date(1970, 1, 1)
+      , actual = $filter('tzAlign')(expected, 'bogus')
+
+    expect(actual).toEqual(expected)
+  })
+
   it('should align date objects that are formatted correctly', function () {
     scenarios.forEach(function (scenario) {
       var expected = scenario.expected
