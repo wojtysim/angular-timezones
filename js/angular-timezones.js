@@ -96,7 +96,7 @@
        *
        * @returns {*} A Date "aligned" to the desired timezone.
        */
-      align : function (date, timezone) {
+      align : function (date, timezone, silent) {
         if (!angular.isDate(date)) {
           throw {
             name : 'DateObjectExpected',
@@ -104,12 +104,16 @@
           }
         }
 
-        if ('object' === typeof(timezone) && timezone.name) {
+        if (angular.isObject(timezone) && timezone.name) {
           return toExtendedNative(new timezoneJS.Date(date, timezone.name))
         }
 
-        if ('string' === typeof(timezone)) {
+        if (angular.isString(timezone)) {
           return toExtendedNative(new timezoneJS.Date(date, timezone))
+        }
+
+        if (true === silent) {
+          return date
         }
 
         throw new Error('The timezone argument must either be an Olson name (e.g., America/New_York), or a timezone object (produced by the resolve function) bearing an Olson name on the name property.')
@@ -177,7 +181,13 @@
         return date
       }
 
-      return $timezones.align(verifiedDate, timezone)
+      var alignedDate = $timezones.align(verifiedDate, timezone, true)
+
+      if (isNaN(alignedDate.getTime())) {
+        return date
+      }
+
+      return alignedDate
     }
   })
 
