@@ -11,7 +11,7 @@
 ```json
 {
   "dependencies" : {
-    "angular-timezones" : "git@github.com:michaelahlers/angular-timezones.git#0.3.7"
+    "angular-timezones" : "git@github.com:michaelahlers/angular-timezones.git#0.3.8"
   }
 }
 ```
