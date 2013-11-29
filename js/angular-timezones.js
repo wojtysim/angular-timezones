@@ -36,12 +36,56 @@
     }
   })
 
-  module.constant('$timezones.definitions.location', '/tz/data')
+ module.constant('$timezones.definitions.location', '/tz/data')
 
-  module.run(['$timezones.definitions.location', '$log', function (location, $log) {
-    timezoneJS.timezone.zoneFileBasePath = location
-    timezoneJS.timezone.init({ async : false })
-  }])
+ module.run(['$timezones.definitions.location', '$log', '$q','$rootScope', function (location, $log, $q,$rootScope) {
+    timezoneJS.timezone.transport = function(opts){
+          if (!opts) return;
+          if (!opts.url) throw new Error ('URL must be specified');
+          if (!('async' in opts)) opts.async = true;
+
+        var XHR = window.XMLHttpRequest || function() {
+            /* global ActiveXObject */
+            try { return new ActiveXObject("Msxml2.XMLHTTP.6.0"); } catch (e1) {}
+            try { return new ActiveXObject("Msxml2.XMLHTTP.3.0"); } catch (e2) {}
+            try { return new ActiveXObject("Msxml2.XMLHTTP"); } catch (e3) {}
+            throw minErr('$httpBackend')('noxhr', "This browser does not support XMLHttpRequest.");
+        };
+        var xhr = new XHR();
+
+        if (!opts.async) {
+            xhr.open('GET', opts.url, false);  // `false` makes the request synchronous
+            xhr.send(null);
+
+            if (xhr.status === 200) {
+                return xhr.responseText;
+            }
+        }
+        else{
+
+            var deferred = $q.defer();
+
+            xhr.open('GET', opts.url , true);
+            xhr.onload = function () {
+                $rootScope.$apply(function () {
+                    if (xhr.readyState == 4) {
+                        if (xhr.status == 200) {
+                            deferred.resolve(opts.success(xhr.responseText));
+                        }
+                        else {
+                            deferred.reject(opts.error());
+                        }
+                    }
+                });
+            };
+            xhr.send(null);
+            return deferred.promise;
+        }
+
+    };
+    timezoneJS.timezone.zoneFileBasePath = location;
+    timezoneJS.timezone.init({async: true});
+  }]);
 
   module.factory('$timezones', function () {
     var resolve = function (timezone, reference) {
