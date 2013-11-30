@@ -3,7 +3,7 @@
   var application = angular.module('application', ['Timezones'])
 
   application.constant('$timezones.definitions.location', '../../tz/data')
-
+  application.constant('$timezones.definitions.asynchronousLoad', false)
   application.controller('World', function ($scope) {
     var now = $scope.now = Date.now()
 
