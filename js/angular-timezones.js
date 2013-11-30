@@ -37,8 +37,9 @@
   })
 
  module.constant('$timezones.definitions.location', '/tz/data')
+ module.constant('$timezones.definitions.asynchronousLoad', true)
 
- module.run(['$timezones.definitions.location', '$log', '$q','$rootScope', function (location, $log, $q,$rootScope) {
+ module.run(['$timezones.definitions.location','$timezones.definitions.asynchronousLoad', '$log', '$q','$rootScope', function (location, asynchronousLoad, $log, $q,$rootScope) {
     timezoneJS.timezone.transport = function(opts){
           if (!opts) return;
           if (!opts.url) throw new Error ('URL must be specified');
@@ -84,7 +85,7 @@
 
     };
     timezoneJS.timezone.zoneFileBasePath = location;
-    timezoneJS.timezone.init({async: true});
+    timezoneJS.timezone.init({async: asynchronousLoad});
   }]);
 
   module.factory('$timezones', function () {
