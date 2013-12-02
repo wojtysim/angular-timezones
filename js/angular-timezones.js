@@ -1,49 +1,52 @@
 (function (root) {
 
-  var angular = root.angular
-    , timezoneJS = root.timezoneJS
-    , jstz = root.jstz
+  var angular = root.angular;
+  var timezoneJS = root.timezoneJS;
+  var jstz = root.jstz;
 
   var toExtendedNative = function (wrapped) {
     /* Tricks the isDate method in Angular into treating these objects like it
      * would any other Date. May be horribly slow. */
-    var native = new Date()
-    for (key in wrapped) {
-      native[key] = wrapped[key]
+    var nat = new Date();
+    for ( var key in wrapped) {
+      nat[key] = wrapped[key];
     }
-    return native
-  }
+    return nat;
+  };
 
-  var module = angular.module('Timezones', [])
+  var module = angular.module('Timezones', []);
 
   module.config(function () {
     timezoneJS.fromLocalString = function (str, tz) {
       // https://github.com/csnover/js-iso8601/blob/master/iso8601.js – MIT license
 
-      var minutesOffset = 0
-      var struct = /^(\d{4}|[+\-]\d{6})(?:-(\d{2})(?:-(\d{2}))?)?(?:T(\d{1,2}):(\d{1,2})(?::(\d{1,2})(?:\.(\d{3}))?)?(?:(Z)|([+\-])(\d{2})(?::(\d{2}))?)?)?$/.exec(str)
-      var numericKeys = [ 1, 4, 5, 6, 7, 10, 11 ]
+      var minutesOffset = 0;
+      var struct = /^(\d{4}|[+\-]\d{6})(?:-(\d{2})(?:-(\d{2}))?)?(?:T(\d{1,2}):(\d{1,2})(?::(\d{1,2})(?:\.(\d{3}))?)?(?:(Z)|([+\-])(\d{2})(?::(\d{2}))?)?)?$/.exec(str);
+      var numericKeys = [ 1, 4, 5, 6, 7, 10, 11 ];
       // avoid NaN timestamps caused by “undefined” values being passed to Date.UTC
       for (var i = 0, k; (k = numericKeys[i]); ++i) {
-        struct[k] = +struct[k] || 0
+        struct[k] = +struct[k] || 0;
       }
 
       // allow undefined days and months
-      struct[2] = (+struct[2] || 1) - 1
-      struct[3] = +struct[3] || 1
+      struct[2] = (+struct[2] || 1) - 1;
+      struct[3] = +struct[3] || 1;
 
-      return toExtendedNative(new timezoneJS.Date(struct[1], struct[2], struct[3], struct[4], struct[5], struct[6], struct[7], tz))
-    }
-  })
+      return toExtendedNative(new timezoneJS.Date(struct[1], struct[2], struct[3], struct[4], struct[5], struct[6], struct[7], tz));
+    };
+  });
 
- module.constant('$timezones.definitions.location', '/tz/data')
- module.constant('$timezones.definitions.asynchronousLoad', true)
+ module.constant('$timezones.definitions.location', '/tz/data');
+ module.constant('$timezones.definitions.asynchronousLoad', true);
 
  module.run(['$timezones.definitions.location','$timezones.definitions.asynchronousLoad', '$log', '$q','$rootScope', function (location, asynchronousLoad, $log, $q,$rootScope) {
     timezoneJS.timezone.transport = function(opts){
-          if (!opts) return;
-          if (!opts.url) throw new Error ('URL must be specified');
-          if (!('async' in opts)) opts.async = true;
+          if (!opts){ return; }
+          if (!opts.url){throw new Error ('URL must be specified');}
+          if (!('async' in opts))
+          {
+              opts.async = true;
+          }
 
         var XHR = window.XMLHttpRequest || function() {
             /* global ActiveXObject */
@@ -91,7 +94,7 @@
   module.factory('$timezones', function () {
     var resolve = function (timezone, reference) {
       if ('number' === typeof(reference)) {
-        reference = new Date(reference)
+        reference = new Date(reference);
       }
 
       /*
@@ -107,14 +110,14 @@
         throw {
           name : 'DateObjectExpected',
           message : 'Expected a Date object; got "' + date + '".'
-        }
+        };
       }
 
       /* This is not terribly efficient, but necessary because some timezone
        * specifics (like the abbreviation and offset) are temporal. */
-      reference = new timezoneJS.Date(reference, timezone)
+      reference = new timezoneJS.Date(reference, timezone);
 
-      var name = reference.getTimezone()
+      var name = reference.getTimezone();
 
       var result = {
         name : name,
@@ -122,10 +125,10 @@
         offset : reference.getTimezoneOffset(),
         region : name.split('/')[0],
         locality : name.split('/')[1].replace('_', ' ')
-      }
+      };
 
-      return result
-    }
+      return result;
+    };
 
     return {
 
@@ -146,22 +149,22 @@
           throw {
             name : 'DateObjectExpected',
             message : 'Expected a Date object; got "' + date + '".'
-          }
+          };
         }
 
         if (angular.isObject(timezone) && timezone.name) {
-          return toExtendedNative(new timezoneJS.Date(date, timezone.name))
+          return toExtendedNative(new timezoneJS.Date(date, timezone.name));
         }
 
         if (angular.isString(timezone)) {
-          return toExtendedNative(new timezoneJS.Date(date, timezone))
+          return toExtendedNative(new timezoneJS.Date(date, timezone));
         }
 
         if (true === silent) {
-          return date
+          return date;
         }
 
-        throw new Error('The timezone argument must either be an Olson name (e.g., America/New_York), or a timezone object (produced by the resolve function) bearing an Olson name on the name property.')
+        throw new Error('The timezone argument must either be an Olson name (e.g., America/New_York), or a timezone object (produced by the resolve function) bearing an Olson name on the name property.');
       },
 
       /**
@@ -190,50 +193,49 @@
           throw {
             name : 'JSTZLibraryMissing',
             message : 'The jsTimezoneDetect library, available at https://bitbucket.org/pellepim/jstimezonedetect, is required to detect the local timezone.'
-          }
+          };
         }
 
-        var name = jstz.determine().name()
-          , now = new Date()
+        var name = jstz.determine().name(), now = new Date();
 
-        return resolve(name, now)
+        return resolve(name, now);
       }
 
-    }
-  })
+    };
+  });
 
   module.filter('tzAlign', function ($timezones) {
     return function (date, timezone) {
       if (!(angular.isDate(date) || angular.isNumber(date) || angular.isString(date)) || !(angular.isString(timezone) || angular.isObject(timezone))) {
-        return date
+        return date;
       }
 
-      var verifiedDate = date
+      var verifiedDate = date;
 
       if (angular.isNumber(date)) {
-        verifiedDate = new Date(date)
+        verifiedDate = new Date(date);
       } else if (angular.isString(date)) {
-        var milliseconds = parseInt(date)
+        var milliseconds = parseInt(date,10);
 
         if (!angular.isNumber(milliseconds)) {
-          milliseconds = Date.parse(date)
+          milliseconds = Date.parse(date);
         }
 
-        verifiedDate = new Date(milliseconds)
+        verifiedDate = new Date(milliseconds);
       }
 
       if (!angular.isDate(verifiedDate) || isNaN(verifiedDate.getTime())) {
-        return date
+        return date;
       }
 
-      var alignedDate = $timezones.align(verifiedDate, timezone, true)
+      var alignedDate = $timezones.align(verifiedDate, timezone, true);
 
       if (isNaN(alignedDate.getTime())) {
-        return date
+        return date;
       }
 
-      return alignedDate
-    }
-  })
+      return alignedDate;
+    };
+  });
 
-})(this)
+})(this);
